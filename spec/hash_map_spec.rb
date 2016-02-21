@@ -9,6 +9,12 @@ RSpec.describe HashMap do
       expect(subject).to be_truthy
       expect(subject).to eq hash_map.bucket
     end
+
+    xit "returns false when inserting with a key that is already inserted" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      expect(hash_map.insert("apples", 2)).to eq false
+    end
   end
 
   describe "#count" do
