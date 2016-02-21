@@ -10,6 +10,22 @@ RSpec.describe HashMap do
       expect(subject).to eq hash_map
     end
 
+    it "modifies the hash map object" do
+      hash_map = HashMap.new
+      expect(hash_map.bucket).to be_empty
+
+      hash_map.insert("apples", 1)
+      expect(hash_map.bucket).not_to be_empty
+    end
+
+    it "makes the correct change to the hash map" do
+      hash_map = HashMap.new
+      expect(hash_map.bucket).to be_empty
+
+      hash_map.insert("apples", 1)
+      expect(hash_map.bucket).to include ["apples", 1]
+    end
+
     it "chains expressions" do
       hash_map = HashMap.new
       subject = hash_map.insert("apples", 1).insert("bananas", 1)
