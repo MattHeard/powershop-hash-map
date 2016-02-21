@@ -7,6 +7,8 @@ class HashMap
 
   def insert(key, value)
     @bucket.push [key, value]
+
+    self
   end
 
   def count

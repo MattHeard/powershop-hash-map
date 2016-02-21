@@ -2,12 +2,20 @@ require_relative '../hash_map'
 
 RSpec.describe HashMap do
   describe "#insert" do
-    it "returns a non-empty bucket" do
+    it "returns a hash map" do
       hash_map = HashMap.new
       subject = hash_map.insert("apples", 1)
 
       expect(subject).to be_truthy
-      expect(subject).to eq hash_map.bucket
+      expect(subject).to eq hash_map
+    end
+
+    it "chains expressions" do
+      hash_map = HashMap.new
+      subject = hash_map.insert("apples", 1).insert("bananas", 1)
+
+      expect(subject).to be_truthy
+      expect(subject).to eq hash_map
     end
 
     xit "returns false when inserting with a key that is already inserted" do
