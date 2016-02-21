@@ -1,9 +1,15 @@
 class HashMap
+  def initialize
+    @bucket = []
+  end
+
   def insert(key, value)
+    @bucket.push [key, value]
+
     true
   end
 
   def count
-    1
+    @bucket.length
   end
 end

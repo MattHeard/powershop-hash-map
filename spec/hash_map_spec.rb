@@ -14,5 +14,13 @@ RSpec.describe HashMap do
 
       expect(hash_map.count).to eq 1
     end
+
+    it "returns a count of 2 after inserting 2 key value pairs" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      hash_map.insert("bananas", 1)
+
+      expect(hash_map.count).to eq 2
+    end
   end
 end
