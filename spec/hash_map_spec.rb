@@ -2,8 +2,12 @@ require_relative '../hash_map'
 
 RSpec.describe HashMap do
   describe "#insert" do
-    it "inserts a key value pair" do
-      expect(HashMap.new.insert("apples", 1)).to eq true
+    it "returns a non-empty bucket" do
+      hash_map = HashMap.new
+      subject = hash_map.insert("apples", 1)
+
+      expect(subject).to be_truthy
+      expect(subject).to eq hash_map.bucket
     end
   end
 
