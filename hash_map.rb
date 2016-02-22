@@ -18,13 +18,23 @@ class HashMap
   end
 
   def update(key, value)
-    @buckets[hash(key)].select { |pair| pair[0] == key }.first[1] = value
+    if has_key?(key)
+      (@buckets[hash(key)] || []).select { |pair| pair[0] == key }.first[1] = value
+    else
+      insert(key, value)
+    end
 
     self
   end
 
   def get(key)
-    @buckets[hash(key)].select { |pair| pair[0] == key }.first[1]
+    if has_key?(key)
+      (@buckets[hash(key)] || []).select { |pair| pair[0] == key }.first[1]
+    end
+  end
+
+  def delete(key)
+    (@buckets[hash(key)] || []).reject! { |pair| pair[0] == key }
   end
 
   def biggest_bucket_size
