@@ -148,22 +148,22 @@ RSpec.describe HashMap do
       expect(hash_map.biggest_bucket_size).to eq 1
     end
 
-    xit "returns 2 when two elements with different, colliding keys are added" do
-      hash_map = HashMap.new
-      hash_map.insert("apple", 1)
-      hash_map.insert("peach", 1)
-
-      expect(hash_map.biggest_bucket_size).to eq 2
-    end
-
-    xit "returns 2 when some elements have colliding keys" do
-      hash_map = HashMap.new
-      hash_map.insert("apple", 1)
-      hash_map.insert("banana", 2)
-      hash_map.insert("peach", 3)
-
-      expect(hash_map.biggest_bucket_size).to eq 2
-    end
+    # it "returns 2 when two elements with different, colliding keys are added" do
+    #   hash_map = HashMap.new
+    #   hash_map.insert("apple", 1)
+    #   hash_map.insert("peach", 1)
+    #
+    #   expect(hash_map.biggest_bucket_size).to eq 2
+    # end
+    #
+    # it "returns 2 when some elements have colliding keys" do
+    #   hash_map = HashMap.new
+    #   hash_map.insert("apple", 1)
+    #   hash_map.insert("banana", 2)
+    #   hash_map.insert("peach", 3)
+    #
+    #   expect(hash_map.biggest_bucket_size).to eq 2
+    # end
   end
 
   describe "#has_key?" do
@@ -179,6 +179,25 @@ RSpec.describe HashMap do
       expected_value = "hello".to_s.chars.map(&:ord).inject { |product, n| product * n } % 10007
 
       expect(hash_map.hash("hello")).to eq expected_value
+    end
+  end
+
+  describe "load testing" do
+    it "splits 10000 different keys evenly across the available 10007 buckets" do
+      hash_map = HashMap.new
+
+      keys = []
+      10000.times { keys.push File.read("spec/words.txt").split.sample.to_s }
+      pairs = keys.zip((1..10000).to_a)
+
+      pairs.each do |pair|
+        key = pair[0]
+        value = pair[1]
+
+        hash_map.insert(key, value)
+      end
+
+      expect(hash_map.biggest_bucket_size).to be_between(1, 10)
     end
   end
 end
