@@ -12,18 +12,18 @@ RSpec.describe HashMap do
 
     it "modifies the hash map object" do
       hash_map = HashMap.new
-      expect(hash_map.bucket).to be_empty
+      expect(hash_map).to be_empty
 
       hash_map.insert("apples", 1)
-      expect(hash_map.bucket).not_to be_empty
+      expect(hash_map).not_to be_empty
     end
 
     it "makes the correct change to the hash map" do
       hash_map = HashMap.new
-      expect(hash_map.bucket).to be_empty
+      expect(hash_map).to be_empty
 
       hash_map.insert("apples", 1)
-      expect(hash_map.bucket).to include ["apples", 1]
+      expect(hash_map.has_key?("apples")).to be true
     end
 
     it "chains expressions" do
@@ -38,7 +38,7 @@ RSpec.describe HashMap do
       hash_map = HashMap.new
       hash_map.insert("apples", 1)
 
-      expect(hash_map.insert("apples", 2).bucket).not_to include ["apples", 2]
+      expect(hash_map.insert("apples", 2).get("apples")).not_to eq 2
     end
   end
 
@@ -78,6 +78,29 @@ RSpec.describe HashMap do
 
       hash_map.update("apples", 3)
       expect(hash_map.get("apples")).to eq 3
+    end
+  end
+
+  describe "#biggest_bucket_size" do
+    it "returns 0 when hash map is empty" do
+      hash_map = HashMap.new
+
+      expect(hash_map.biggest_bucket_size).to eq 0
+    end
+
+    it "returns 1 when a single element is added" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+
+      expect(hash_map.biggest_bucket_size).to eq 1
+    end
+
+    it "returns 1 when two elements with different, non-colliding keys are added" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      hash_map.insert("bananas", 1)
+
+      expect(hash_map.biggest_bucket_size).to eq 1
     end
   end
 end
