@@ -34,10 +34,11 @@ RSpec.describe HashMap do
       expect(subject).to eq hash_map
     end
 
-    xit "returns false when inserting with a key that is already inserted" do
+    it "returns unaltered hash map when inserting with a key that is already inserted" do
       hash_map = HashMap.new
       hash_map.insert("apples", 1)
-      expect(hash_map.insert("apples", 2)).to eq false
+
+      expect(hash_map.insert("apples", 2).bucket).not_to include ["apples", 2]
     end
   end
 

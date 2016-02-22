@@ -6,7 +6,9 @@ class HashMap
   end
 
   def insert(key, value)
-    @bucket.push [key, value]
+    if @bucket.none? { |pair| pair[0] == key }
+      @bucket.push [key, value]
+    end
 
     self
   end
