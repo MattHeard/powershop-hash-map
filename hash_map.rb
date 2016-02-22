@@ -24,7 +24,9 @@ class HashMap
   end
 
   def get(key)
-    @bucket.select { |pair| pair[0] == key }.first[1]
+    if @bucket.any? { |pair| pair[0] == key }
+      @bucket.select { |pair| pair[0] == key }.first[1]
+    end
   end
 
   def delete(key)

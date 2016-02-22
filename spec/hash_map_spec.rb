@@ -81,6 +81,21 @@ RSpec.describe HashMap do
     end
   end
 
+  describe "#get" do
+    it "gets a value at valid key" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+
+      expect(hash_map.get("apples")).to eq 1
+    end
+
+    it "returns nil when given an invalid key" do
+      hash_map = HashMap.new
+
+      expect(hash_map.get("bananas")).to eq nil
+    end
+  end
+
   describe "#delete" do
     it "removes a key value pair given a key" do
       hash_map = HashMap.new
