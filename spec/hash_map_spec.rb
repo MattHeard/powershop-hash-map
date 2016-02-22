@@ -185,9 +185,10 @@ RSpec.describe HashMap do
   describe "load testing" do
     it "splits 10000 different keys evenly across the available 10007 buckets" do
       hash_map = HashMap.new
+      file = File.read("spec/words.txt").split
 
       keys = []
-      10000.times { keys.push File.read("spec/words.txt").split.sample.to_s }
+      10000.times { keys.push file.sample.to_s }
       pairs = keys.zip((1..10000).to_a)
 
       pairs.each do |pair|
