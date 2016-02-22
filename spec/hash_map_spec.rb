@@ -57,4 +57,23 @@ RSpec.describe HashMap do
       expect(hash_map.count).to eq 2
     end
   end
+
+  describe "#update" do
+    it "returns a hash map" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      subject = hash_map.update("apples", 2)
+
+      expect(subject).to be_truthy
+      expect(subject).to eq hash_map
+    end
+
+    it "updates the value at given key" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      subject = hash_map.update("apples", 2)
+
+      expect(hash_map.get("apples")).to eq 2
+    end
+  end
 end
