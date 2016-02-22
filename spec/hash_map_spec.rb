@@ -71,9 +71,12 @@ RSpec.describe HashMap do
     it "updates the value at given key" do
       hash_map = HashMap.new
       hash_map.insert("apples", 1)
-      subject = hash_map.update("apples", 2)
+      hash_map.update("apples", 2)
 
       expect(hash_map.get("apples")).to eq 2
+
+      hash_map.update("apples", 3)
+      expect(hash_map.get("apples")).to eq 3
     end
   end
 end

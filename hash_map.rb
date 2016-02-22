@@ -16,10 +16,12 @@ class HashMap
   end
 
   def update(key, value)
+    @bucket.select { |pair| pair[0] == key }.first[1] = value
+
     self
   end
 
   def get(key)
-    2
+    @bucket.select { |pair| pair[0] == key }.first[1]
   end
 end
