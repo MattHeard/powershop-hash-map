@@ -36,7 +36,7 @@ class HashMap
   end
 
   def has_key?(key)
-    @buckets[hash(key)].any? { |pair| pair[0] == key }
+    (@buckets[hash(key)] || []).any? { |pair| pair[0] == key }
   end
 
   def hash(key)
