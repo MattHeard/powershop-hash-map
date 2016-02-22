@@ -1,25 +1,25 @@
 class HashMap
-  attr_reader :bucket
-
   def initialize
-    @bucket = []
+    @buckets = []
   end
 
   def insert(key, value)
-    if @bucket.none? { |pair| pair[0] == key }
-      @bucket.push [key, value]
+    @buckets[hash(key)] ||= []
+
+    if @buckets[hash(key)].none? { |pair| pair[0] == key }
+      @buckets[hash(key)].push [key, value]
     end
 
     self
   end
 
   def count
-    @bucket.length
+    @buckets.count { |bucket| !bucket.nil? && !bucket.empty? }
   end
 
   def update(key, value)
-    if @bucket.any? { |pair| pair[0] == key }
-      @bucket.select { |pair| pair[0] == key }.first[1] = value
+    if has_key?(key)
+      (@buckets[hash(key)] || []).select { |pair| pair[0] == key }.first[1] = value
     else
       insert(key, value)
     end
@@ -28,12 +28,28 @@ class HashMap
   end
 
   def get(key)
-    if @bucket.any? { |pair| pair[0] == key }
-      @bucket.select { |pair| pair[0] == key }.first[1]
+    if has_key?(key)
+      (@buckets[hash(key)] || []).select { |pair| pair[0] == key }.first[1]
     end
   end
 
   def delete(key)
-    @bucket.reject! { |pair| pair[0] == key }
+    (@buckets[hash(key)] || []).reject! { |pair| pair[0] == key }
+  end
+
+  def biggest_bucket_size
+    @buckets.reject(&:nil?).map(&:size).max || 0
+  end
+
+  def empty?
+    @buckets.flatten(1).size == 0
+  end
+
+  def has_key?(key)
+    (@buckets[hash(key)] || []).any? { |pair| pair[0] == key }
+  end
+
+  def hash(key)
+    key.size
   end
 end
