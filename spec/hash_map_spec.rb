@@ -113,6 +113,17 @@ RSpec.describe HashMap do
 
       expect(hash_map.has_key?("apples")).to be false
     end
+
+    it "chains deletion" do
+      hash_map = HashMap.new
+      hash_map.insert("apple", 1)
+      hash_map.insert("peach", 5)
+
+      expect(hash_map.get("apple")).to eq 1
+      expect(hash_map.get("peach")).to eq 5
+
+      expect(hash_map.delete("apple").delete("peach")).to eq hash_map
+    end
   end
 
   describe "#biggest_bucket_size" do

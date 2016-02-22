@@ -35,6 +35,8 @@ class HashMap
 
   def delete(key)
     (@buckets[hash(key)] || []).reject! { |pair| pair[0] == key }
+
+    self
   end
 
   def biggest_bucket_size
