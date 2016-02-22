@@ -79,6 +79,13 @@ RSpec.describe HashMap do
       hash_map.update("apples", 3)
       expect(hash_map.get("apples")).to eq 3
     end
+
+    it "inserts a new pair given an missing key" do
+      hash_map = HashMap.new
+
+      hash_map.update("apples", 3)
+      expect(hash_map.get("apples")).to eq 3
+    end
   end
 
   describe "#get" do

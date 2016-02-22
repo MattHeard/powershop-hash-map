@@ -18,7 +18,11 @@ class HashMap
   end
 
   def update(key, value)
-    @bucket.select { |pair| pair[0] == key }.first[1] = value
+    if @bucket.any? { |pair| pair[0] == key }
+      @bucket.select { |pair| pair[0] == key }.first[1] = value
+    else
+      insert(key, value)
+    end
 
     self
   end
