@@ -52,6 +52,6 @@ class HashMap
   end
 
   def hash(key)
-    key.size
+    key.to_s.chars.map(&:ord).inject { |product, n| product * n } % 10007
   end
 end
