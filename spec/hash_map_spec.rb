@@ -80,4 +80,16 @@ RSpec.describe HashMap do
       expect(hash_map.get("apples")).to eq 3
     end
   end
+
+  describe "#delete" do
+    it "removes a key value pair given a key" do
+      hash_map = HashMap.new
+      hash_map.insert("apples", 1)
+      expect(hash_map.get("apples")).to eq 1
+
+      hash_map.delete("apples")
+
+      expect(hash_map.bucket).not_to include ["apples", 1]
+    end
+  end
 end
